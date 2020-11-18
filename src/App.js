@@ -1,25 +1,33 @@
+import {Component} from 'react'
+import MainContainer from './MainContainer'
+
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends Component {
+
+  state = {
+    characters: []
+  }
+
+  componentDidMount(){
+    fetch("https://rickandmortyapi.com/api/character")
+      .then(response => response.json())
+      .then(characters => this.setState({characters: characters.results}))
+  }
+
+  //
+
+  render(){
+    
+      return (
+        <div className="App">
+          <h1>Up?</h1>
+          <MainContainer characters={this.state.characters} />
+          {/* {this.eachCharacter()} */}
+        </div>
+      );
+    }
+  }
 
 export default App;
